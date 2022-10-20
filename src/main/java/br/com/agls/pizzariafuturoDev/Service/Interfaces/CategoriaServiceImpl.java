@@ -2,12 +2,18 @@ package br.com.agls.pizzariafuturoDev.Service.Interfaces;
 
 
 import br.com.agls.pizzariafuturoDev.Model.Repository.CategoriaRepository;
+import br.com.agls.pizzariafuturoDev.Service.Interfaces.CategoriaService;
 import br.com.agls.pizzariafuturoDev.entity.Categoria;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityExistsException;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.http.ResponseEntity.status;
 
 @Service
 public class CategoriaServiceImpl implements CategoriaService {
@@ -17,6 +23,13 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     @Override
     public Categoria salvar(Categoria categoria) {
+
+        boolean isNomeExistente = this.categoriaRepository.existsBynome(categoria.getNome().toLowerCase());
+
+        if(isNomeExistente){
+            throw new EntityExistsException("Já existe uma categoria com o nome: "+ categoria.getNome());
+        }
+
         return this.categoriaRepository.save(categoria);
     }
 
@@ -36,12 +49,14 @@ public class CategoriaServiceImpl implements CategoriaService {
     public Categoria buscar(Long id) {
         Optional<Categoria> categoria = this.categoriaRepository.findById(id);
 
-        if (categoria.isPresent()) {
+        if (categoria.isEmpty()) {
             return categoria.get();
         }
 
         return null;
     }
+
+
 
     @Override
     public List<Categoria> listar() {
@@ -55,4 +70,12 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
 
-}
+    }
+
+//    @Override
+//    public boolean existsByCategoria(String nome) {
+//        return false;
+//    }
+
+
+

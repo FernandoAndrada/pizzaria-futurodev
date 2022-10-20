@@ -3,11 +3,11 @@ package br.com.agls.pizzariafuturoDev.controller;
 //Categoria, 1- Massa , 2- Carne, 3- Petisco, 4- sobre-mesa , 5- suco , 6-refrigerante  ,7-Bebida alcool
 // https://docs.spring.io/spring-data/jpa/docs/current/reference/html/
 //https://www.petrikainulainen.net/programming/spring-framework/spring-data-jpa-tutorial-introduction-to-query-methods/
-//validação para não deixar inserir cat mesmo nome
+//validação para não deixar inserir categoria mesmo nome
+import br.com.agls.pizzariafuturoDev.Model.Repository.CategoriaRepository;
 import br.com.agls.pizzariafuturoDev.Service.Interfaces.CategoriaService;
 import br.com.agls.pizzariafuturoDev.entity.Categoria;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,12 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @PostMapping
-    public ResponseEntity<Categoria> salvar(@RequestBody @Valid Categoria categoria) {
+    public ResponseEntity<Object> salvar(@RequestBody @Valid Categoria categoria) {
+
+//        if(categoriaService.existsBynome(categoria.getNome())){
+//
+//             return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflit: Nome em uso");
+//            }
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(this.categoriaService.salvar(categoria));
@@ -42,9 +47,6 @@ public class CategoriaController {
 
     @GetMapping
     public ResponseEntity<List<Categoria>> listar() {
-//        return ResponseEntity
-//                .status(HttpStatus.OK)
-//                .body(this.mesaService.listar());
         return ResponseEntity.ok(this.categoriaService.listar());
     }
 
@@ -57,5 +59,6 @@ public class CategoriaController {
         }
         return ResponseEntity.ok(this.categoriaService.buscar(id));
     }
+
 
 }

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,7 +71,17 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
 
+    @Override
+    public Categoria buscarPorNome(String nome) {
+        Optional<Categoria> categoriaPesquisada = this.categoriaRepository.findByNome(nome);
+
+        if(categoriaPesquisada.isEmpty()) {
+            throw new EntityNotFoundException("Não foi possível encontrar uma categoria com o nome: " + nome);
+        }
+
+        return categoriaPesquisada.get();
     }
+}
 
 //    @Override
 //    public boolean existsByCategoria(String nome) {

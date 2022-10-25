@@ -5,6 +5,8 @@ import br.com.agls.pizzariafuturoDev.entity.Categoria;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 
@@ -12,6 +14,7 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
     //Se existir o nome retorna true
    boolean existsBynome(String nome);//existisByplaca existisBycpf
 
+    Optional<Categoria> findByNome(String nome);
 }
 
 

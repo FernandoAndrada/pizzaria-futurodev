@@ -4,6 +4,8 @@ package br.com.agls.pizzariafuturoDev.controller;
 // https://docs.spring.io/spring-data/jpa/docs/current/reference/html/
 //https://www.petrikainulainen.net/programming/spring-framework/spring-data-jpa-tutorial-introduction-to-query-methods/
 //validação para não deixar inserir categoria mesmo nome
+// Pratos - Id:Long Nome:String preço: Double Categoria:Categoria (FK)
+
 import br.com.agls.pizzariafuturoDev.Model.Repository.CategoriaRepository;
 import br.com.agls.pizzariafuturoDev.Service.Interfaces.CategoriaService;
 import br.com.agls.pizzariafuturoDev.entity.Categoria;

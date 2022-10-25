@@ -6,18 +6,10 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-@Service
-public interface CategoriaService {
 
-    Categoria salvar(Categoria categoria);
+public interface CategoriaService extends DefaultCrud<Categoria> {
 
-    Categoria atualizar(Categoria categoria);
-
-    Categoria buscar(Long id);
-
-    List<Categoria> listar();
-
-    void deletar(Long id);
+    Categoria buscarPorNome (String nome);
 
 //    public boolean existsBynome(String nome){
 //        return CategoriaRepository.existsBynome(nome);

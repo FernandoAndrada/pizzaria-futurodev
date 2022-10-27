@@ -38,4 +38,9 @@ public class CartaoServiceImpl implements CartaoService {
     public void deletar(Long id) {
 
     }
+
+    @Override
+    public void excluir(Long id) {
+
+    }
 }

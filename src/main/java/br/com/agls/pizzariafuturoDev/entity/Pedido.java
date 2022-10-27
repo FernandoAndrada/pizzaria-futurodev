@@ -28,6 +28,9 @@ public class Pedido {
     private Boolean isPago;
 
 
+    @ManyToOne
+    private Cliente cliente;
+
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @JsonManagedReference
     @ManyToMany
@@ -40,7 +43,6 @@ public class Pedido {
     /*create table pedido_prato (
         pedido_id integer,
         prato_id integer,
-
         add contraint (fk_pedido_id) column pedido_id references pedido (id)
         add contraint (fk_prato_id) column prato_id references prato (id)
     );
